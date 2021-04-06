@@ -1,2 +1,0 @@
-def welcome():
-    return "hello"
