@@ -24,6 +24,7 @@ class Out(pop.Out):
     @caller
     def off(self):
         print("call Out.off")
+        super().off()
 
 class Led(Out, pop.Led):
     def __init__(self, n):
@@ -65,7 +66,7 @@ class Leds(pop.Leds):
 
     @caller
     def allOff(self):
-        super.allOff()
+        super().allOff()
 
 if __name__ == "__main__":
     import time
