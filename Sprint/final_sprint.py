@@ -266,12 +266,12 @@ while True:
         elif end==2:
             for _ in range(3):
                 rgb = [randint(0,255),randint(0,255),randint(0,255)]
-                for p in range(3,-1,-1):
-                    for j in range(0,6-(p*2)): pixel.setColor(0+p,6-j-p,rgb); time.sleep(0.05)
-                    for i in range(0,7-(p*2)): pixel.setColor(6-i-p,7-p,rgb); time.sleep(0.05)
-                    
-                    for j in range(0,7-(p*2)): pixel.setColor(7-p,j+1+p,rgb); time.sleep(0.05)
-                    for i in range(0,8-(p*2)): pixel.setColor(i+p,0+p,rgb); time.sleep(0.05)
+                for q in range(0,4):
+                    for j in range(0,6-(q*2)): pixel.setColor(0+q,j+q,rgb); time.sleep(0.05)
+                    for i in range(0,7-(q*2)): pixel.setColor(i+q,7-q,rgb); time.sleep(0.05)
+
+                    for j in range(0,7-(q*2)): pixel.setColor(7-q,7-j-q,rgb); time.sleep(0.05)
+                    for i in range(0,8-(q*2)): pixel.setColor(7-i-q,0+q,rgb); time.sleep(0.05)
 
         elif end==3:
 
