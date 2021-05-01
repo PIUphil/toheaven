@@ -266,7 +266,7 @@ while True:
         elif end==2:
             for _ in range(3):
                 rgb = [randint(0,255),randint(0,255),randint(0,255)]
-                for q in range(0,4):
+                for q in range(3,-1,-1):
                     for j in range(0,6-(q*2)): pixel.setColor(0+q,j+q,rgb); time.sleep(0.05)
                     for i in range(0,7-(q*2)): pixel.setColor(i+q,7-q,rgb); time.sleep(0.05)
 
