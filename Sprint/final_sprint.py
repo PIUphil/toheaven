@@ -16,6 +16,7 @@ mv_cnt = 0
 oled = Oled()
 start_time=0
 
+
 @blynk.VIRTUAL_READ(9)
 def on_tmp():
     blynk.virtual_write(9, int(tmp))
@@ -23,7 +24,6 @@ def on_tmp():
 @blynk.VIRTUAL_READ(10)
 def on_hum():
     blynk.virtual_write(10, int(hum))
-
 
 
 oled.setCursor(20, 30)
@@ -37,7 +37,7 @@ elif 35<tmp: rgb_tp=(255,0,0)
 
 if hum<=20: rgb_hm=(255,255,255)    # 습도 색깔
 elif 20<hum<=50: rgb_hm=(149,202,255)
-elif 20<hum<=80: rgb_hm=(0,0,255)
+elif 50<hum<=80: rgb_hm=(0,0,255)
 elif 80<hum: rgb_hm=(2,10,49)
 
 #trs = [[x,y][x,y][x,y][][][]]
@@ -61,7 +61,6 @@ while len(trs) < num:
     trs.discard((4,4))
 
 print(trs)
-
 
 
 def show(n):
@@ -88,14 +87,12 @@ def show(n):
 
 
 def black(n):
-    x = usr_x
-    y = usr_y
     blc = [0,0,0]   # black
     
-    pixel.setColor(x, y, blc)
-    pixel.setColor(x+1, y, blc)
-    pixel.setColor(x, y-1, blc)
-    pixel.setColor(x+1, y-1, blc)
+    pixel.setColor(usr_x, usr_y, blc)
+    pixel.setColor(usr_x+1, usr_y, blc)
+    pixel.setColor(usr_x, usr_y-1, blc)
+    pixel.setColor(usr_x+1, usr_y-1, blc)
     
     #time.sleep(0.1)
     return()
@@ -106,17 +103,14 @@ def pix_right(n):
     global usr_x,mv_cnt
    # global pixel
     
-    
-    for i in n:
-        if i=="1" or i=="0":
-            black(n)
-            if usr_x >= 6:
-                usr_x = 6
-                show(n)
-            else:
-                usr_x += 1
-                mv_cnt +=1
-                show(n)
+    if n[0]=="1" or n[0]=="0":
+        black(n)
+        if usr_x >= 6:
+            usr_x = 6
+        else:
+            usr_x += 1
+            mv_cnt +=1
+        show(n)
 
         buzzer = PiezoBuzzer()
         buzzer.setTempo(120)
@@ -129,17 +123,14 @@ def pix_right(n):
 def pix_left(n):
     global usr_x,mv_cnt
 
-    for i in n:
-        if i=="1" or i=="0":
-            black(n)
-            if usr_x <= 0:
-                usr_x = 0 
-                show(n)   
-            else:
-                usr_x -= 1
-                mv_cnt +=1
-                show(n)
-
+    if n[0]=="1" or n[0]=="0":
+        black(n)
+        if usr_x <= 0:
+            usr_x = 0 
+        else:
+            usr_x -= 1
+            mv_cnt +=1
+        show(n)
         
         buzzer = PiezoBuzzer()
         buzzer.setTempo(120)
@@ -152,16 +143,14 @@ def pix_left(n):
 def pix_up(n):
     global usr_y,mv_cnt
 
-    for i in n:
-        if i=="1" or i=="0":
-            black(n)
-            if usr_y <= 1:
-                usr_y = 1 
-                show(n)   
-            else:
-                usr_y -= 1
-                mv_cnt +=1
-                show(n)
+    if n[0]=="1" or n[0]=="0":
+        black(n)
+        if usr_y <= 1:
+            usr_y = 1 
+        else:
+            usr_y -= 1
+            mv_cnt +=1
+        show(n)
 
         buzzer = PiezoBuzzer()
         buzzer.setTempo(120)
@@ -172,16 +161,14 @@ def pix_up(n):
 def pix_down(n):
     global usr_y,mv_cnt
 
-    for i in n:
-        if i=="1" or i=="0":
-            black(n)
-            if usr_y >= 7:
-                usr_y = 7 
-                show(n)   
-            else:
-                usr_y += 1
-                mv_cnt +=1
-                show(n)
+    if n[0]=="1" or n[0]=="0":
+        black(n)
+        if usr_y >= 7:
+            usr_y = 7 
+        else:
+            usr_y += 1
+            mv_cnt +=1
+        show(n)
 
         buzzer = PiezoBuzzer()
         buzzer.setTempo(120)
@@ -217,19 +204,18 @@ if __name__=="__main__":
     pass
     #show(1)
 
-
+trs_n = len(trs)
 
 while True:
     blynk.run()
 
-    trs_n = len(trs)
     if len(trs)<trs_n:
         print(trs)
         trs_n-=1
 
     #print(trs)
     if len(trs)==0:
-        print(" Game Clear     ")
+        print("Game Clear")
         oled.setCursor(20, 30)
         oled.clearDisplay()
         oled.print("Game Clear")
@@ -301,8 +287,8 @@ while True:
                     time.sleep(speed)
                     pixel.setColor(rain_list[ii], y-1, blc)
 
-                    if y==6 and (rain_list[ii]==usr_x or rain_list[ii]==usr_x+1):
-                        score -= 10
+                    #if y==6 and (rain_list[ii]==usr_x or rain_list[ii]==usr_x+1):
+                    #    score -= 10
 
                 time.sleep(0.3)
 
